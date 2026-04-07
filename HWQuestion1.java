@@ -9,7 +9,9 @@ public class HWQuestion1 {
 
         Scanner sc = new Scanner(System.in);
 
+        System.out.println("Enter the starting day of the month:");
         String startDay = sc.next().trim().toLowerCase();
+        System.out.println("Enter the number of days in the month:");
         int n = sc.nextInt();
 
         int startIndex;
@@ -37,6 +39,7 @@ public class HWQuestion1 {
                 break;
             default:
                 System.out.println("Invalid day");
+                sc.close();
                 return;
         }
 
