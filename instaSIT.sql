@@ -91,3 +91,28 @@ insert into comments(user_id, post_id, text) values
 -- Real time operations
 
 -- Q1) Shows posts of people onkar follows
+select p.post_id, u.username, p.caption, p.media_url, p.created_at from posts p join users u on p.user_id = u.user_id
+join follows f on f.following_id = p.user_id where f.follower_id = 1 order by p.created_at desc;
+
+-- Q2) Like count per post
+select p.post_id, count(l.like_id) as total_likes from posts p left join likes l on p.post_id = l.post_id group by p.post_id;
+
+-- Q3) Comment count per post
+select p.post_id, count(c.comment_id) as total_comments from posts p left join comments c on p.post_id = c.post_id group by p.post_id;
+
+-- Q4) Who follows whom?
+select u1.username as follower, u2.username as following from follows f join users u1 on f.follower_id = u1.user_id
+join users u2 on f.following_id = u2.user_id;
+
+-- Q5) Add new post
+insert into posts(user_id, caption, media_url) values (3, 'My first bike riding', 'image002.png');
+select * from posts;
+
+-- Q6) Like a post
+insert into likes (user_id, post_id) values (2, 5);
+
+-- Q7) Delete a follow (unfollow)
+delete from follows where follower_id = 1 and following_id = 3;
+
+-- Q8) Get all comments on a post
+select u.username, c.text from comments c join users u on c.user_id=u.user_id where c.user_id=2;
